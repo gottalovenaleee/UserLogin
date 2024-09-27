@@ -24,19 +24,7 @@ public class Login {
         System.out.print("Enter username: ");
              username = scanner.nextLine();
         System.out.print("Enter password: ");
-        String  
-        // Create a new user account
-        UserAccount account = new UserAccount(fname, lname, username, password);
-
-        // Prompt user to enter login credentials
-        System.out.print("Enter username: ");
-        String loginUsername = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String loginPassword = scanner.nextLine();
-
-        // Check if login credentials are valid
-       public boolean isValidLogin(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
-    }
+            password = scanner.nextLine();
+       
     }
 }

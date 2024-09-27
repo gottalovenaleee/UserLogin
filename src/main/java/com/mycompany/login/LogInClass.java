@@ -25,16 +25,12 @@ public class LogInClass {
     public boolean isValidUsername(String username) {
     // Check if the username has not more than of 5 characters long and contains any invalid characters (except underscore
     if (username.length() < 5 && username.contains("_")) {
-        System.out.print
-        system.out.print ("Username is not correctly formatted, please ensure than 
-                your username contains an underscore and is no more than 5 characters in length);
-        return false;
+        System.out.print("Username is not correctly formatted, please ensure than your username contains an underscore and is no more than 5 characters in length");      
+        return true;
     }
     else 
-    // Check if the username contains any invalid characters (except underscore)
-    
-    
+        System.out.print("Useranme successfully captured");
     // If all conditions are met, the username is valid
-    return true;
+    return false;
 }
 }
