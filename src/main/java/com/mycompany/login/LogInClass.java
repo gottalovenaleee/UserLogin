@@ -4,11 +4,15 @@
  */
 package com.mycompany.login;
 
+import java.util.HashMap;
+import java.util.Map;
 /**
  *
  * @author RC_Student_lab
  */
-public class LogInClass {
+public class LogInClass { //static map to store usernames and passwords for registered users
+    private static Map<String, String > userDatabase = new HashMap<>();
+
     private String fname;
     private String lname;
     private String username;
@@ -59,8 +63,10 @@ public class LogInClass {
 
         return hasCapitalLetter && hasLowercaseLetter && hasDigit && hasSpecialCharacter;
     }
- 
-           public String registerUser(String usrname, String Password) {
+                
+           public static String registerUser(String usrname, String Password) { //register a username and password
+            userDatabase.put(username, password);
+            System.out.println("User registered successfully!");
            username = "nale_"; // example username
             if (checkUserName(username)){
                 System.out.println("Username succesfully captured");
@@ -74,13 +80,35 @@ public class LogInClass {
             System.out.println("Password is not correctly formatted, please ensure that the password contains atleast 8 characters,a capital letter, a number and a special character");
         } else {
             System.out.println("Password succesfully captured");
-            return;
-        }
+            return password;
+            }
+           }
+           //Testing login
+            System.out.println(returnLogStatus(username, password));
+            
+         //Check  username & display user friendly
+
+         public static boolean loginUser (String username, String password){
+         if (checkUserName){
+             System.out.print("Username successfully captured");
+         } else{
+             System.out.print("Username is not correctly formatted,please ensure than your username contains an underscore and is no more than 5 characters in length");
+                     }
+         if (checkPasswordComplexity){
+         }
+         public static String returnLoginStatus (String username, String password){
+         //Check if the login details are correct
+         if (loginUser(username, password)){
+         }     
+}
+}
+}     
+        
            
         
    /**public String registerUser() {
        if username && password = true;
-       System.out.print("Welcome" + fname + "," + lname + "it's graet to see you again");
+       System.out.print("Welcome" + fname + "," + lname + "it's great to see you again");
        else System.out.print("Username or password incorrect, please try again")
        
         return ;
