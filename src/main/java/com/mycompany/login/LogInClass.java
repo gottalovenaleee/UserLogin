@@ -24,13 +24,41 @@ public class LogInClass {
     //Check if username and password meets the requirements
     public boolean isValidUsername(String username) {
     // Check if the username has not more than of 5 characters long and contains any invalid characters (except underscore
-    if (username.length() < 5 && username.contains("_")) {
-        System.out.print("Username is not correctly formatted, please ensure than your username contains an underscore and is no more than 5 characters in length");      
+    if (username.length() > 5 || !username.contains("_")) {
+        return false;
+    }
+    else {
         return true;
     }
-    else 
-        System.out.print("Useranme successfully captured");
-    // If all conditions are met, the username is valid
-    return false;
+    }
+ public static boolean checkPasswordComplexity (String password){
+     if (password.length() < 8) {
+                 return false;  // password must be at least 8 characters long
+                  }
+
+        boolean hasCapitalLetter = false;
+        boolean hasLowercaseLetter = false;
+        boolean hasDigit = false;
+        boolean hasSpecialCharacter = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasCapitalLetter = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowercaseLetter = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (!Character.isLetterOrDigit(c)) {
+                hasSpecialCharacter = true;
+            }
+
+            if (hasCapitalLetter && hasLowercaseLetter && hasDigit && hasSpecialCharacter) {
+                break;  // all conditions met, no need to continue
+            }
+        }
+
+        return hasCapitalLetter && hasLowercaseLetter && hasDigit && hasSpecialCharacter;
+    }
+
 }
-}
+ 
