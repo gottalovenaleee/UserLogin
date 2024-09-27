@@ -9,7 +9,7 @@ package com.mycompany.login;
  * @author RC_Student_lab
  */
 public class LogInClass {
-      private String fname;
+    private String fname;
     private String lname;
     private String username;
     private String password;
@@ -22,7 +22,7 @@ public class LogInClass {
         this.password = password;
     }
     //Check if username and password meets the requirements
-    public boolean isValidUsername(String username) {
+    public static boolean checkUserName(String username) {
     // Check if the username has not more than of 5 characters long and contains any invalid characters (except underscore
     if (username.length() > 5 || !username.contains("_")) {
         return false;
@@ -59,6 +59,35 @@ public class LogInClass {
 
         return hasCapitalLetter && hasLowercaseLetter && hasDigit && hasSpecialCharacter;
     }
-
-}
+ 
+           public String registerUser(String usrname, String Password) {
+           username = "nale_"; // example username
+            if (checkUserName(username)){
+                System.out.println("Username succesfully captured");
+         } else{
+                System.out.print("Username is not correctly formatted,please ensure than your username contains an underscore and is no more than 5 characters in length");
+        // If all conditions are met, the username is valid 
+            }
+       
+             password = "Naledi@16";  // example password
+        if (checkPasswordComplexity(password)) {
+            System.out.println("Password is not correctly formatted, please ensure that the password contains atleast 8 characters,a capital letter, a number and a special character");
+        } else {
+            System.out.println("Password succesfully captured");
+            return;
+        }
+           
+        
+   /**public String registerUser() {
+       if username && password = true;
+       System.out.print("Welcome" + fname + "," + lname + "it's graet to see you again");
+       else System.out.print("Username or password incorrect, please try again")
+       
+        return ;
+       
+       
+       
+   }
+   
+}* **/
  
