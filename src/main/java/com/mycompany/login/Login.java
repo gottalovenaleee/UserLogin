@@ -26,9 +26,27 @@ public class Login {
              username = scanner.nextLine();
         System.out.print("Enter password: ");
             password = scanner.nextLine();
-            
-            
-}
+         // Create an instance of LogInClass
+        LogInClass logInClass = new LogInClass(fname, lname, username, password);
 
+        // Call the registerUser method
+        LogInClass.registerUser(fname, lname, username, password);
+
+        // Call the loginUser method
+        System.out.print("Enter username: ");
+           String LoginUsername = scanner.nextLine();
+        System.out.print("Enter password: ");
+           String LoginPassword = scanner.nextLine();
+        LogInClass.loginUser(username, password);
+
+        // Call the returnLoginStatus method
+        String loginStatus = LogInClass.returnLoginStatus(username, password, fname, lname);
+        System.out.println(loginStatus);
+        
     }
+}   
+            
+
+
+    
 
