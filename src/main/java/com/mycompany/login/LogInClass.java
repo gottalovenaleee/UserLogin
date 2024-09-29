@@ -20,27 +20,24 @@ public class LogInClass {
         this.username = username;
         this.password = password;
     }
-    //Check if username and password meets the requirements
+          // Check if username meets the requirements
     public static boolean checkUserName(String username) {
-    // Check if the username has not more than of 5 characters long and contains any invalid characters (except underscore
-     {
-        return (username.length() <= 5 && !username.contains("_"));
+        // Check if the username is no more than 5 characters long and contains an underscore
+        return (username.length() <= 5 && username.contains("_"));
     }
-    
-    }
- public static boolean checkPasswordComplexity (String password){
-     //Check for Capital Letter
-      boolean hasCapitalLetter = false;
-      //Check for a Digit
+
+    public static boolean checkPasswordComplexity(String password) {
+        // Check for Capital Letter, Digit, and Special Character
+        boolean hasCapitalLetter = false;
         boolean hasDigit = false;
-        //Check for a special character
         boolean hasSpecialCharacter = false;
-     //Make if statements | Nest like if statements
-        //Check if password must at least be 8 characters long
-             if (password.length() > 8) {
-                 System.out.println("Password must be at least 8 characters long.");
-                return false; // Early return if the length check fails
-            }
+
+        // Check if password must be at least 8 characters long
+        if (password.length() < 8) {
+            System.out.println("Password must be at least 8 characters long.");
+            return false; // Early return if the length check fails
+        }
+
         for (char c : password.toCharArray()) {
             if (Character.isUpperCase(c)) {
                 hasCapitalLetter = true;
@@ -50,38 +47,33 @@ public class LogInClass {
                 hasSpecialCharacter = true;
             }
 
-            if (hasCapitalLetter &&  hasDigit && hasSpecialCharacter) {
-                break;  // all conditions met, no need to continue
+            if (hasCapitalLetter && hasDigit && hasSpecialCharacter) {
+                break;  // All conditions met, no need to continue
             }
         }
 
         return hasCapitalLetter && hasDigit && hasSpecialCharacter;
     }
-                
-                public static String registerUser(String fname, String lname, String username, String Password) { 
-         // Register a username and password
-         if (!checkUserName(username)) { // If all conditions are met, the username is valid
-             return "Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.";
-         }
-         if (!checkPasswordComplexity(Password)) {
-             return "Password is not correctly formatted. Please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
-         }
-         return "User registered successfully."; // Indicate success
-            }
 
-           
-         //Check  username & display user friendly
-           
-          public static boolean loginUser(String username, String password) {
-        boolean isUsernameValid = checkUserName(username);
-        boolean isPasswordValid = checkPasswordComplexity(password);
+    public static String registerUser(String fname, String lname, String username, String password) {
+        // Register a username and password
+        if (!checkUserName(username)) {
+            return "Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.";
+        }
+        if (!checkPasswordComplexity(password)) {
+            return "Password is not correctly formatted. Please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
+        }
+        return "User registered successfully."; // Indicate success
+    }
 
-        if (!isUsernameValid) {
+    // Check username & display user friendly
+    public static boolean loginUser(String storedUsername, String storedPassword, String inputUsername, String inputPassword) {
+        if (!storedUsername.equals(inputUsername)) {
             System.out.println("Username is not correct.");
             return false;
         }
 
-        if (!isPasswordValid) {
+        if (!storedPassword.equals(inputPassword)) {
             System.out.println("Login failed. Please check your password.");
             return false;
         }
@@ -91,15 +83,12 @@ public class LogInClass {
     }
 
     public static String returnLoginStatus(String fname, String lname, String username, String password) {
-        if (loginUser(username, password)) {
+        if (loginUser(username, password, username, password)) {
             System.out.println("Welcome " + fname + " " + lname + ". It's great to see you again!");
             return "Login successful";
         } else {
             System.out.println("Username or password incorrect. Please try again.");
             return "Login failed";
         }
-        
     }
 }
-    
-  
