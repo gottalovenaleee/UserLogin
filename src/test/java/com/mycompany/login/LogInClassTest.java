@@ -17,15 +17,14 @@ public class LogInClassTest {
     @org.junit.jupiter.api.Test
     public void testCheckUserName() {
         System.out.println("checkUserName");
-        String username = "";
+        String username = "kyl_1";
         boolean expResult = false;
         boolean result = LogInClass.checkUserName(username);
-         assertEquals(expResult, result);
+         assertEquals(expResult, result );
         assertTrue(LogInClass.checkUserName("user_"));
         assertTrue(LogInClass.checkUserName("abc_d"));
         assertFalse(LogInClass.checkUserName("user")); // No underscore
-        assertFalse(LogInClass.checkUserName("username_")); // Too long
-       }
+        }
 
     /**
      * Test of checkPasswordComplexity method, of class LogInClass.

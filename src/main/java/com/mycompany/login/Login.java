@@ -5,7 +5,7 @@
 package com.mycompany.login;
 import static com.mycompany.login.LogInClass.checkPasswordComplexity;
 import java.util.Scanner;
-
+import javax.swing.*;
 /**
  *
  * @author RC_Student_lab
@@ -14,7 +14,8 @@ public class Login {
 
     public static void main(String[] args) {
         // Declarations
-        String fname, lname, username, password;
+        String fname, lname, username, password, statusText = null;
+      
         // Create a scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
@@ -28,6 +29,7 @@ public class Login {
         System.out.println(" ");
         System.out.print("Enter username: "); 
         username = scanner.nextLine();
+        System.out.println(" ");
 
         // Loop until a valid password is entered
         while (true) {
@@ -69,8 +71,44 @@ public class Login {
                 loggedIn = true; // Exit loop on successful login
             }
         }
+       
         
-        // Close the scanner
-        scanner.close();
+       
+        //PART TWO!!!!!
+        // Display welcome message after login
+        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
+
+        // Ask user how many tasks they want to add
+        int numberOfTasks = Integer.parseInt(JOptionPane.showInputDialog("How many tasks would you like to add?"));
+        Task task = new Task(numberOfTasks); // Create Task object to hold the tasks
+
+        // Add tasks
+        task.addTasks(numberOfTasks);
+
+        // Display the tasks summary
+        task.displayTasks();
+
+        // Menu for additional actions
+        boolean running = true;
+        while (running) {
+            String[] options = {"1) Add tasks", "2) Show report", "3) Quit"};
+            int option = JOptionPane.showOptionDialog(null, "Please select an option:", "EasyKanban Menu",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+            switch (option) {
+                case 0: // Add tasks
+                    numberOfTasks = Integer.parseInt(JOptionPane.showInputDialog("How many additional tasks would you like to add?"));
+                    task.addTasks(numberOfTasks);
+                    break;
+                case 1: // Show report
+                    task.displayTasks();
+                    break;
+                case 2: // Quit
+                    running = false; // Exit the loop to quit
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Invalid option selected.");
+            }
+        }
     }
 }
