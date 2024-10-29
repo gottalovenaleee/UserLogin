@@ -18,7 +18,10 @@ public class Login {
       
         // Create a scanner to read user input
         Scanner scanner = new Scanner(System.in);
-
+        
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
         // Prompt user to enter first name, last name, username, and password
         System.out.println("WELCOME");
         System.out.print("Enter first name: ");
@@ -44,10 +47,10 @@ public class Login {
             }
 
             // Create an instance of LogInClass
-            LogInClass logInClass = new LogInClass(fname, lname, username, password);
+            LogInClass logInClass = new LogInClass();
 
             // Call the registerUser method
-            String registrationStatus = LogInClass.registerUser(fname, lname, username, password);
+            String registrationStatus = LogInClass.registerUser(username, password);
             System.out.println(registrationStatus);
             break; // Exit loop if registration is successful
         }
@@ -69,24 +72,20 @@ public class Login {
             // Check if login was successful
             if (loginStatus.equals("Login successful")) {
                 loggedIn = true; // Exit loop on successful login
+                 JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
+                
+            }else{
+                if (loggedIn = false){
+                    break;
+                }
             }
         }
-       
-        
-       
-        //PART TWO!!!!!
-        // Display welcome message after login
-        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
-
         // Ask user how many tasks they want to add
         int numberOfTasks = Integer.parseInt(JOptionPane.showInputDialog("How many tasks would you like to add?"));
         Task task = new Task(numberOfTasks); // Create Task object to hold the tasks
 
         // Add tasks
         task.addTasks(numberOfTasks);
-
-        // Display the tasks summary
-        task.displayTasks();
 
         // Menu for additional actions
         boolean running = true;
@@ -101,13 +100,16 @@ public class Login {
                     task.addTasks(numberOfTasks);
                     break;
                 case 1: // Show report
-                    task.displayTasks();
+                    JOptionPane.showMessageDialog(null,"Coming soon!");
                     break;
                 case 2: // Quit
+                    JOptionPane.showMessageDialog(null,"Goodbye!");
                     running = false; // Exit the loop to quit
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Invalid option selected.");
+                    
+                    dialog.dispose();
             }
         }
     }

@@ -13,13 +13,7 @@ public class LogInClass {
     public String username;
     public String password;
 
-    // Constructor to initialize
-    public LogInClass (String fname, String lname, String username, String password) {
-        this.fname = fname;
-        this.lname = lname;
-        this.username = username;
-        this.password = password;
-    }
+    
           // Check if username meets the requirements
     public static boolean checkUserName(String username) {
         // Check if the username is no more than 5 characters long and contains an underscore
@@ -55,7 +49,7 @@ public class LogInClass {
         return hasCapitalLetter && hasDigit && hasSpecialCharacter;
     }
 
-    public static String registerUser(String fname, String lname, String username, String password) {
+    public static String registerUser(String username, String password) {
         // Register a username and password
         if (!checkUserName(username)) {
             return "Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.";
