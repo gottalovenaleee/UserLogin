@@ -48,19 +48,7 @@ public class LogInClass {
 
         return hasCapitalLetter && hasDigit && hasSpecialCharacter;
     }
-
-    public static String registerUser(String username, String password) {
-        // Register a username and password
-        if (!checkUserName(username)) {
-            return "Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.";
-        }
-        if (!checkPasswordComplexity(password)) {
-            return "Password is not correctly formatted. Please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
-        }
-        return "User registered successfully."; // Indicate success
-    }
-
-    // Check username & display user friendly
+       // Check username & display user friendly
     public static boolean loginUser(String storedUsername, String storedPassword, String inputUsername, String inputPassword) {
         if (!storedUsername.equals(inputUsername)) {
             System.out.println("Username is not correct.");
@@ -83,6 +71,23 @@ public class LogInClass {
         } else {
             System.out.println("Username or password incorrect. Please try again.");
             return "Login failed";
+        }
+    }
+    /* This method returns the necessary registreation messading indicating if the username is incorrectly formatted,The password does not meet complexity requrements
+    The two abvve conditions have been and user has been registered successfully
+    */
+    public String registerUser(String username, String password,String lastName ,String firstName) {
+        if (!checkUserName(username)) {
+            return "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.";
+        } else if (!checkPasswordComplexity(password)) {
+            return "Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
+        } else {
+            this.username = username;
+            this.password = password;
+            this.lname = lastName;
+            this.fname = firstName;
+            
+            return "User successfully registered.";
         }
     }
 }

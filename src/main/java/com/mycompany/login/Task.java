@@ -20,6 +20,7 @@ public class Task {
     int totalHours;  // Declare total hours
     int taskCount;   // Track the number of tasks added
     String taskDescription; // Single task description
+   
 
     // Constructor to initialize the arrays and variables
     public Task(int size) {
@@ -33,6 +34,7 @@ public class Task {
         this.totalHours = 0; // Initialize totalHours
         this.taskCount = 0;  // Initialize taskCount
     }
+    
     
     // Constructor to initialize taskDescription
     public Task(String taskDescription) {
@@ -92,8 +94,7 @@ public class Task {
             JOptionPane.showMessageDialog(null, "Please enter both first and last name.");
             return false;
         }
-        JOptionPane.showMessageDialog(null, "Developer's details successfully captured.");
-    return true;
+       return true;
      }
          // Method to check if task description length is less than 50 characters
         public boolean checkTaskDescription(String taskDescription) {
@@ -124,10 +125,118 @@ public class Task {
                     "Task ID: " + taskID[details] + "\n" +
                     "Task Duration: " + taskDuration[details] + " hours";
         }
-
-
-            // Method to return total hours of all tasks
-            public int returnTotalHours() {
-                return totalHours;
+            
+           
+            // Display tasks with status "Done"
+            public void displayDoneTasks() {
+                StringBuilder doneTasks = new StringBuilder("Tasks marked as Done:\n");
+                for (int i = 0; i < taskCount; i++) {
+                    if ("Done".equals(taskStatus[i])) {
+                        doneTasks.append("Developer: ").append(developerDetails[i]).append(" \n")
+                                .append(", Task: ").append(taskName[i]).append("\n")
+                                .append(", Duration: ").append(taskDuration[i]).append(" hours\n");
+                    }
+                }
+                JOptionPane.showMessageDialog(null, doneTasks.toString());
             }
-    }
+
+            // Method to display the developer and duration of the task with the longest duration
+            public void displayLongestTask() {
+                if (taskCount == 0) {
+                    JOptionPane.showMessageDialog(null, "No tasks available.");
+                    return; // Exit if no tasks have been added
+                }
+
+                int maxDurationIndex = 0; // Index of the task with the longest duration
+                for (int i = 1; i < taskCount; i++) {
+                    if (taskDuration[i] > taskDuration[maxDurationIndex]) {
+                        maxDurationIndex = i; // Update the index for the longest task
+                    }
+                }
+
+                // Display the details of the task with the longest duration
+                JOptionPane.showMessageDialog(null, 
+                    "Developer: " + developerDetails[maxDurationIndex] + "\n" +
+                    "Task Duration: " + taskDuration[maxDurationIndex] + " hours",
+                    "Task with Longest Duration", JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+
+            // Search by task name
+            public void searchByTaskName(String name) {
+                for (int i = 0; i < taskCount; i++) {
+                    if (taskName[i].equalsIgnoreCase(name)) {
+                        JOptionPane.showMessageDialog(null, "Task: " + taskName[i] + "\n" +
+                                ", Developer: " + developerDetails[i] + "\n" +
+                                ", Status: " + taskStatus[i]);
+                        return;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Task not found.");
+            }
+
+            // Search by developer
+                    public void searchByDeveloper(String name) {
+            for (int i = 0; i < taskCount; i++) {
+                if (taskName[i].equalsIgnoreCase(name)) { // Corrected array reference
+                    JOptionPane.showMessageDialog(null, "Task Name: " + taskName[i] + "/n" +
+                            "\nStatus: " + taskStatus[i]);
+                    return;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Task not found.");
+        }
+
+            // Delete a task by name
+                public void deleteTask(String name) {
+         boolean taskFound = false;
+         for (int i = 0; i < taskCount; i++) {
+             if (taskName[i].equalsIgnoreCase(name)) { // Correct array reference
+                 taskFound = true;
+
+                 // Shift element to the left to remove the task
+                 for (int j = i; j < taskCount - 1; j++) {
+                     taskName[j] = taskName[j + 1];
+                     developerDetails[j] = developerDetails[j + 1];
+                     taskDuration[j] = taskDuration[j + 1];
+                     taskID[j] = taskID[j + 1];
+                     taskStatus[j] = taskStatus[j + 1];
+                 }
+
+                 // Clear the last task since it has been shifted
+                 taskName[taskCount - 1] = null;
+                 developerDetails[taskCount - 1] = null;
+                 taskDuration[taskCount - 1] = 0;
+                 taskID[taskCount - 1] = null;
+                 taskStatus[taskCount - 1] = null;
+
+                 taskCount--; // Decrement the task count
+                 JOptionPane.showMessageDialog(null, "Task deleted successfully.");
+                 return;
+             }
+         }
+
+         if (!taskFound) {
+             JOptionPane.showMessageDialog(null, "Task not found.");
+         }
+}
+
+
+            // Display full report of tasks
+            public void displayFullReport() {
+                StringBuilder report = new StringBuilder("Full Task Report:\n");
+                for (int i = 0; i < taskCount; i++) {
+                    report.append("Status: ").append(taskStatus[i]).append("\n")
+                            .append("Developer: ").append(developerDetails[i]).append("\n")
+                            .append("Number: ").append(taskNumber[i]).append("\n")
+                            .append("Task: ").append(taskName[i]).append("\n") 
+                            .append("Task ID: ").append(taskID[i]).append("\n")
+                            .append("Duration: ").append(taskDuration[i]).append("\n")
+                            .append("---------------------------\n"); // Divider for tasks;
+                }
+                JOptionPane.showMessageDialog(null, "Total hours for all tasks is " + totalHours);
+                JOptionPane.showMessageDialog(null, report.toString());
+            }
+        }
+       
+    
