@@ -32,7 +32,7 @@ public class Task {
         this.taskID = new String[size];
         this.taskStatus = new String[size];
         this.totalHours = 0; // Initialize totalHours
-        this.taskCount = 0;  // Initialize taskCount
+        this.taskCount = 1;  // Initialize taskCount
     }
     
     
@@ -75,12 +75,7 @@ public class Task {
             taskNumber[taskCount] = taskCount ;  // Assign task number
 
             taskCount++;  // Increment the task counter
-            
-        //Calling The pring taks details
-         JOptionPane.showMessageDialog(null,printTaskDetails(i));
-
-        
-            
+       
         }
         
         JOptionPane.showMessageDialog(null, "Total hours for all tasks is " + totalHours);
@@ -113,7 +108,7 @@ public class Task {
             String devLastName = devNameParts[1];  // Assuming name has at least two parts
             return taskName.substring(0, 2).toUpperCase() + ":" + taskNumber + ":" + devLastName.substring(devLastName.length() - 3).toUpperCase();
         }
-
+            //Part 3!!!
             // Method to display tasks in detail
         public String printTaskDetails(int details) {
             return "Task Details of "+ developerDetails[details] +":\n" +  //Heading

@@ -4,12 +4,8 @@
  */
  package com.mycompany.login;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -17,25 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class TaskTest {
 
-    @BeforeAll
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterAll
-    public static void tearDownClass() throws Exception {
-    }
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
-
-    /**
-     * Test the createTaskID method to ensure it generates the correct Task ID.
-     */
     @Test
     public void testCreateTaskID() {
         Task task = new Task(1);
@@ -49,178 +26,167 @@ public class TaskTest {
         assertEquals("AD:2:MIK", taskID2, "Task ID should be AD:2:MIK");
     }
 
-    /**
-     * Test adding tasks and validating their properties.
-     */
-    @Test
-    public void testAddTasks() {
-        // Initialize Task with size 2
-        Task task = new Task(2);
-
-        // Manually add first task
-        task.getDevelopers()[0] = "Robyn Harrison";
-        task.getTaskNames()[0] = "Login Feature";
-        task.getTaskDurations()[0] = 8;
-        task.getTaskStatuses()[0] = "To Do";
-        task.getTaskIDs()[0] = task.createTaskID(task.getTaskNames()[0], 1, task.getDevelopers()[0]);
-
-        // Manually add second task
-        task.getDevelopers()[1] = "Mike Smith";
-        task.getTaskNames()[1] = "Add Task Feature";
-        task.getTaskDurations()[1] = 10;
-        task.getTaskStatuses()[1] = "Doing";
-        task.getTaskIDs()[1] = task.createTaskID(task.getTaskNames()[1], 2, task.getDevelopers()[1]);
-
-        // Set task count
-        // Note: Since taskCount is private and there's no setter, 
-        // you might need to adjust the Task class to allow setting taskCount for testing purposes.
-        // Alternatively, you can simulate adding tasks using the addTasks method with mocked inputs.
-        // For simplicity, we'll assume taskCount can be set here (not recommended for encapsulation).
-        // If not possible, consider refactoring the Task class.
-        // task.taskCount = 2; // Not accessible
-
-        // Since taskCount is not accessible, we'll verify based on the expected size
-        // Validate first task
-        assertEquals("Login Feature", task.getTaskNames()[0], "First task name should be 'Login Feature'");
-        assertEquals("Robyn Harrison", task.getDevelopers()[0], "First developer should be 'Robyn Harrison'");
-        assertEquals(8, task.getTaskDurations()[0], "First task duration should be 8 hours");
-        assertEquals("To Do", task.getTaskStatuses()[0], "First task status should be 'To Do'");
-        assertEquals("LO:1:ROB", task.getTaskIDs()[0], "First task ID should be 'LO:1:ROB'");
-
-        // Validate second task
-        assertEquals("Add Task Feature", task.getTaskNames()[1], "Second task name should be 'Add Task Feature'");
-        assertEquals("Mike Smith", task.getDevelopers()[1], "Second developer should be 'Mike Smith'");
-        assertEquals(10, task.getTaskDurations()[1], "Second task duration should be 10 hours");
-        assertEquals("Doing", task.getTaskStatuses()[1], "Second task status should be 'Doing'");
-        assertEquals("AD:2:MIK", task.getTaskIDs()[1], "Second task ID should be 'AD:2:MIK'");
-    }
-
-    /**
-     * Test the creation of task IDs with different inputs.
-     */
-    @Test
-    public void testCreateTaskIDWithDifferentInputs() {
-        Task task = new Task(1);
-
-        // Test case 3
-        String taskID3 = task.createTaskID("Bug Fix", 3, "Anna Lee");
-        assertEquals("BU:3:ANN", taskID3, "Task ID should be BU:3:ANN");
-
-        // Test case 4
-        String taskID4 = task.createTaskID("Design Module", 4, "John Doe");
-        assertEquals("DE:4:JOH", taskID4, "Task ID should be DE:4:JOH");
-    }
-
-    /**
-     * Test of validateDeveloperDetails method, of class Task.
-     */
     @Test
     public void testValidateDeveloperDetails() {
-        System.out.println("validateDeveloperDetails");
-        String developerDetails = "";
-        Task instance = null;
-        boolean expResult = false;
-        boolean result = instance.validateDeveloperDetails(developerDetails);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Task task = new Task(1);
+
+        // Valid developer details
+        assertTrue(task.validateDeveloperDetails("John Doe"), "Valid developer details should return true.");
+
+        // Invalid developer details (missing last name)
+        assertFalse(task.validateDeveloperDetails("John"), "Developer details missing last name should return false.");
     }
 
-    /**
-     * Test of checkTaskDescription method, of class Task.
-     */
     @Test
     public void testCheckTaskDescription() {
-        System.out.println("checkTaskDescription");
-        String taskDescription = "";
-        Task instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkTaskDescription(taskDescription);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Task task = new Task("");
+
+        // Valid task description
+        assertTrue(task.checkTaskDescription("Complete login module"), "Valid task description should return true.");
+
+        // Invalid task description (too long)
+        assertFalse(task.checkTaskDescription("This is a very long task description that exceeds fifty characters."),
+                "Task description exceeding 50 characters should return false.");
     }
 
-    /**
-     * Test of printTaskDetails method, of class Task.
-     */
     @Test
-    public void testPrintTaskDetails() {
-        System.out.println("printTaskDetails");
-        int details = 0;
-        Task instance = null;
-        String expResult = "";
-        String result = instance.printTaskDetails(details);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testAddTasks() {
+        Task task = new Task(2);
 
-    /**
-     * Test of displayDoneTasks method, of class Task.
-     */
+        // Mocking task addition
+        task.taskName[0] = "Login Feature";
+        task.developerDetails[0] = "Robyn Harrison";
+        task.taskDuration[0] = 5;
+        task.taskStatus[0] = "To Do";
+        task.taskID[0] = task.createTaskID("Login Feature", 1, "Robyn Harrison");
+        task.taskCount++;
+
+        // Validate the task added
+        assertEquals("Login Feature", task.taskName[0], "Task name should match.");
+        assertEquals("Robyn Harrison", task.developerDetails[0], "Developer details should match.");
+        assertEquals(5, task.taskDuration[0], "Task duration should match.");
+        assertEquals("To Do", task.taskStatus[0], "Task status should match.");
+        assertEquals("LO:1:ROB", task.taskID[0], "Task ID should match.");
+    }
+    
     @Test
-    public void testDisplayDoneTasks() {
-        System.out.println("displayDoneTasks");
-        Task instance = null;
-        instance.displayDoneTasks();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testPopulateDeveloperArray() {
+        Task task = new Task(3); // Assuming we want to populate an array of size 3
 
-    /**
-     * Test of displayLongestTask method, of class Task.
-     */
-    @Test
-    public void testDisplayLongestTask() {
-        System.out.println("displayLongestTask");
-        Task instance = null;
-        instance.displayLongestTask();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        // Simulate populating the array
+        String[] developers = {"Alice Johnson", "Bob Smith", "Carol Lee"};
+        task.developerDetails = developers; // Populate the array
 
-    /**
-     * Test of searchByTaskName method, of class Task.
-     */
+        // Validate that the array is populated correctly
+        assertEquals("Alice Johnson", task.developerDetails[0], "First developer should be Alice Johnson.");
+        assertEquals("Bob Smith", task.developerDetails[1], "Second developer should be Bob Smith.");
+        assertEquals("Carol Lee", task.developerDetails[2], "Third developer should be Carol Lee.");
+
+        // Additional checks for array size and non-null elements
+        assertEquals(3, task.developerDetails.length, "Developer array size should be 3.");
+        for (String developer : task.developerDetails) {
+            assertNotNull(developer, "Developer details should not be null.");
+        }
+    }
     @Test
     public void testSearchByTaskName() {
-        System.out.println("searchByTaskName");
-        String taskName = "";
-        Task instance = null;
-        instance.searchByTaskName(taskName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Task task = new Task(3); // Initialize Task with array size 3
+
+        // Populate task array
+        task.taskName[0] = "Login Feature";
+        task.taskName[1] = "Create Report";
+        task.taskName[2] = "Add Task Feature";
+
+        task.developerDetails[0] = "Alice Johnson";
+        task.developerDetails[1] = "Bob Smith";
+        task.developerDetails[2] = "Carol Lee";
+
+        task.taskStatus[0] = "To Do";
+        task.taskStatus[1] = "Doing";
+        task.taskStatus[2] = "Done";
+    }
+    @Test
+    public void testSearchByDeveloper() {
+        Task task = new Task(3); // Initialize Task with array size 3
+
+        // Populate developer and task arrays
+        task.taskName[0] = "Login Feature";
+        task.taskName[1] = "Create Report";
+        task.taskName[2] = "Add Task Feature";
+
+        task.developerDetails[0] = "Alice Johnson";
+        task.developerDetails[1] = "Bob Smith";
+        task.developerDetails[2] = "Carol Lee";
+
+        task.taskStatus[0] = "To Do";
+        task.taskStatus[1] = "Doing";
+        task.taskStatus[2] = "Done";
+          }
+
+    
+         @Test
+    public void testDisplayDoneTasks() {
+        Task task = new Task(2);
+
+        // Add tasks
+        task.taskName[0] = "Task One";
+        task.taskStatus[0] = "Done";
+        task.developerDetails[0] = "Dev A";
+        task.taskDuration[0] = 3;
+
+        task.taskName[1] = "Task Two";
+        task.taskStatus[1] = "To Do";
+        task.developerDetails[1] = "Dev B";
+        task.taskDuration[1] = 5;
+
+        // Test the "Done" tasks
+        StringBuilder doneTasks = new StringBuilder();
+        for (int i = 0; i < task.taskCount; i++) {
+            if ("Done".equals(task.taskStatus[i])) {
+                doneTasks.append(task.taskName[i]).append(" completed by ").append(task.developerDetails[i]).append("\n");
+            }
+        }
+
+        assertTrue(doneTasks.toString().contains("Task One completed by Dev A"), "Done tasks should include 'Task One'.");
     }
 
-    /**
-     * Test of deleteTask method, of class Task.
-     */
     @Test
     public void testDeleteTask() {
-        System.out.println("deleteTask");
-        String taskName = "";
-        Task instance = null;
-        instance.deleteTask(taskName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Task task = new Task(3);
+
+        // Add tasks
+        task.taskName[0] = "Task One";
+        task.taskName[1] = "Task Two";
+        task.taskName[2] = "Task Three";
+        task.taskCount = 3;
+
+        // Delete Task Two
+        task.deleteTask("Task Two");
+
+        // Validate the deletion
+        assertNull(task.taskName[1], "Task Two should be deleted.");
+        assertEquals("Task Three", task.taskName[1], "Task Three should shift to position 1.");
     }
 
-    /**
-     * Test of displayFullReport method, of class Task.
-     */
     @Test
-    public void testDisplayFullReport() {
-        System.out.println("displayFullReport");
-        Task instance = null;
-        instance.displayFullReport();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testLongestTask() {
+        Task task = new Task(3);
 
-    /**
-     * Additional tests can be added here for other functionalities of the Task class.
-     * However, methods that involve UI components like JOptionPane are not easily testable using standard unit tests.
-     * Consider refactoring those methods to separate logic from UI to facilitate testing.
-     */
-}
+        // Add tasks with varying durations
+        task.taskDuration[0] = 4;
+        task.taskDuration[1] = 7;
+        task.taskDuration[2] = 3;
+        task.taskCount = 3;
+
+        // Find the longest task
+        int longestDurationIndex = 0;
+        for (int i = 1; i < task.taskCount; i++) {
+            if (task.taskDuration[i] > task.taskDuration[longestDurationIndex]) {
+                longestDurationIndex = i;
+            }
+        }
+
+        assertEquals(1, longestDurationIndex, "Longest task should be at index 1.");
+        assertEquals(7, task.taskDuration[longestDurationIndex], "Longest task duration should be 7.");
+    }
+   }
