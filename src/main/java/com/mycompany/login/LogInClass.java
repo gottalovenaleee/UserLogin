@@ -76,7 +76,7 @@ public class LogInClass {
     /* This method returns the necessary registreation messading indicating if the username is incorrectly formatted,The password does not meet complexity requrements
     The two abvve conditions have been and user has been registered successfully
     */
-    public String registerUser(String username, String password,String lastName ,String firstName) {
+    public String registerUser(String username, String password) {
         if (!checkUserName(username)) {
             return "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.";
         } else if (!checkPasswordComplexity(password)) {
@@ -84,8 +84,8 @@ public class LogInClass {
         } else {
             this.username = username;
             this.password = password;
-            this.lname = lastName;
-            this.fname = firstName;
+            this.lname = lname;
+            this.fname = fname;
             
             return "User successfully registered.";
         }

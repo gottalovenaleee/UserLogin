@@ -32,7 +32,7 @@ public class Task {
         this.taskID = new String[size];
         this.taskStatus = new String[size];
         this.totalHours = 0; // Initialize totalHours
-        this.taskCount = 1;  // Initialize taskCount
+        this.taskCount = 0;  // Initialize taskCount
     }
     
     
@@ -72,14 +72,12 @@ public class Task {
 
 
             totalHours += taskDuration[taskCount];  // Add to total hours
-            taskNumber[taskCount] = taskCount ;  // Assign task number
+            taskNumber[taskCount] = taskCount + 1;  // Assign task number
 
             taskCount++;  // Increment the task counter
        
         }
-        
-        JOptionPane.showMessageDialog(null, "Total hours for all tasks is " + totalHours);
-                    }
+    }
     
             // Method to validate developer's details
         public boolean validateDeveloperDetails(String developerDetails) {
@@ -171,16 +169,18 @@ public class Task {
             }
 
             // Search by developer
-                    public void searchByDeveloper(String name) {
-            for (int i = 0; i < taskCount; i++) {
-                if (taskName[i].equalsIgnoreCase(name)) { // Corrected array reference
-                    JOptionPane.showMessageDialog(null, "Task Name: " + taskName[i] + "/n" +
-                            "\nStatus: " + taskStatus[i]);
-                    return;
-                }
+                        public void searchByDeveloper(String developerName) {
+        for (int i = 0; i < taskCount; i++) {
+            if (developerDetails[i].equalsIgnoreCase(developerName)) { // Check against developer details
+                JOptionPane.showMessageDialog(null, 
+                    "Developer: " + developerDetails[i] + "\n" +
+                    "Task Name: " + taskName[i] + "\n" +
+                    "Status: " + taskStatus[i]);
+                return;
             }
-            JOptionPane.showMessageDialog(null, "Task not found.");
         }
+        JOptionPane.showMessageDialog(null, "Developer not found.");
+    }
 
             // Delete a task by name
                 public void deleteTask(String name) {

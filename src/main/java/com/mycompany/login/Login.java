@@ -47,7 +47,7 @@ public class Login {
             }
 
             // Register the user using the provided username and password
-            registrationMessage = logInClass.registerUser(username, password, lname, fname);
+            registrationMessage = logInClass.registerUser(username, password);
             System.out.println(registrationMessage);
 
             // If registration is successful, break out of the loop
@@ -82,7 +82,7 @@ public class Login {
             boolean running = true;
             while (running) {
                 String[] options = {
-                    "Add tasks /n",
+                    "Add tasks",
                     "Show longest task",
                     "Search by task name",
                     "Search by developer",

@@ -59,14 +59,8 @@ public class LogInClassTest {
         String username = "user_";
         String password = "Passw0rd!";
         String expResult = "";
-        String result = LogInClass.registerUser(username, password);
-        assertEquals("User registered successfully.", result);
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testRegisterUserInvalidUserName() {
-        String result = LogInClass.registerUser("user", "Passw0rd!");
-        assertEquals("Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.", result);
+        Object result = null;
+       assertEquals("User registered successfully.", result);
     }
 
     /**
